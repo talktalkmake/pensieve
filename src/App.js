@@ -1,4 +1,5 @@
 import { useReducer, useState } from 'react';
+import moment from 'moment';
 import './css/app.css';
 
 const ACTION = {
@@ -60,9 +61,9 @@ function App() {
 
   return (
     <>
-      <div className='flex justify-center items-center h-screen bg-slate-900 text-cyan-50'>
+      <div className='flex justify-center items-center h-screen bg-slate-900 text-cyan-50 font-mono'>
         <div className='p-8 border-l-2 border-l-cyan-500'>
-          <h3 className='sm:-ml-64'>Monday, May 23, 2022</h3>
+          <h3 className='sm:-ml-64'>{moment(new Date()).format('DD MM YYYY')}</h3>
           <ul>
             {list.map(({ id, done, label }, i) =>
               <li key={i} className='cursor-pointer flex mt-2'>
