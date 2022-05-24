@@ -3,8 +3,8 @@ import './css/app.css';
 
 const ACTION = {
   'TOGGLEDONE': 'toggleDone',
-  'CHANGETORED': 'changeToRed',
-  'ADDNEWITEM': 'addNewItem'
+  'ADDNEWITEM': 'addNewItem',
+  'EDITITEM': 'editItem'
 }
 
 const initialState = [
@@ -35,7 +35,10 @@ const reducer = (state, action) => {
       return [...state.map(item => item.id === id ? { ...item, done: !item.done } : item)];
 
     case 'addNewItem':
-      return [...state, { id: state.length + 1, done: false, label: action.label }]
+      return [...state, { id: state.length + 1, done: false, label: action.label }];
+
+    case 'editItem':
+      return [...state.map(item => item.id === id ? { ...item, label: action.newLabel } : item)];
 
     default:
       return [...state];
@@ -47,6 +50,8 @@ function App() {
   const [list, dispatch] = useReducer(reducer, initialState);
   const [newItem, setNewItem] = useState(false);
   const [newItemText, setNewItemText] = useState('');
+  const [editItemId, setEditItemId] = useState(false);
+  const [newLabel, setNewLabel] = useState('');
 
   const handleNewItem = (label) => {
     dispatch({ type: ACTION.ADDNEWITEM, label })
@@ -60,9 +65,13 @@ function App() {
           <h3 className='sm:-ml-64'>Monday, May 23, 2022</h3>
           <ul>
             {list.map(({ id, done, label }, i) =>
-              <li key={i} className='cursor-pointer hover:bg-red-500' onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })}>
+              <li key={i} className='cursor-pointer flex mt-2'>
                 {done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
-                <span className={done ? 'line-through text-slate-600' : ''}>{label}</span>
+                {editItemId === id
+                  ? <input type='text' onBlur={() => setEditItemId(false)} onChange={e => dispatch({ type: ACTION.EDITITEM, id, newLabel: e.target.value })} className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
+                  : <span onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })} className={`${done ? 'line-through text-slate-600' : ''} ml-4 w-60`}>{label}</span>
+                }
+                <span onClick={() => setEditItemId(id)} className='ml-4 opacity-50 hover:opacity-100'>{!done && <span className=''>✏</span>}</span>
               </li>
             )}
           </ul>
