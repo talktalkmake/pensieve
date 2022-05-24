@@ -62,32 +62,36 @@ function App() {
   return (
     <>
       <div className='flex justify-center items-center h-screen bg-slate-900 text-cyan-50 font-mono'>
-        <div className='p-8 border-l-2 border-l-cyan-500'>
-          <h3 className='sm:-ml-64'>{moment(new Date()).format('DD MM YYYY')}</h3>
-          <ul>
-            {list.map(({ id, done, label }, i) =>
-              <li key={i} className='cursor-pointer flex mt-2'>
-                {done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
-                {editItemId === id
-                  ? <input type='text' onBlur={() => setEditItemId(false)} onChange={e => dispatch({ type: ACTION.EDITITEM, id, newLabel: e.target.value })} className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
-                  : <span onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })} className={`${done ? 'line-through text-slate-600' : ''} ml-4 w-60`}>{label}</span>
-                }
-                <span onClick={() => setEditItemId(id)} className='ml-4 opacity-50 hover:opacity-100'>{!done && <span className='font-sans'>✏</span>}</span>
-              </li>
-            )}
-          </ul>
-          <footer className='mt-6'>
-            {
-              newItem
-                ? <>
-                  <input onChange={e => setNewItemText(e.target.value)} value={newItemText} type='text' className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
-                  <button onClick={() => handleNewItem(newItemText)} className='border-2 bg-cyan-500 border-cyan-500 text-cyan-900 rounded px-4 py-2 block'>Add new item</button>
-                </>
+        <article className='flex flex-col sm:flex-row'>
+          <header className='p-8'>
+            <h3 className=''>{moment(new Date()).format('DD MM YYYY')}</h3>
+          </header>
+          <div className='p-8 border-l-2 border-l-cyan-500'>
+            <ul>
+              {list.map(({ id, done, label }, i) =>
+                <li key={i} className='cursor-pointer flex mt-2'>
+                  {done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
+                  {editItemId === id
+                    ? <input type='text' onBlur={() => setEditItemId(false)} onChange={e => dispatch({ type: ACTION.EDITITEM, id, newLabel: e.target.value })} className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
+                    : <span onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })} className={`${done ? 'line-through text-slate-600' : ''} ml-4 w-60`}>{label}</span>
+                  }
+                  <span onClick={() => setEditItemId(id)} className='ml-4 opacity-50 hover:opacity-100'>{!done && <span className='font-sans'>✏</span>}</span>
+                </li>
+              )}
+            </ul>
+            <footer className='mt-6'>
+              {
+                newItem
+                  ? <>
+                    <input onChange={e => setNewItemText(e.target.value)} value={newItemText} type='text' className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
+                    <button onClick={() => handleNewItem(newItemText)} className='border-2 bg-cyan-500 border-cyan-500 text-cyan-900 rounded px-4 py-2 block'>Add new item</button>
+                  </>
 
-                : <button onClick={() => setNewItem(true)} className='border-2 border-cyan-500 rounded px-4 py-2'>Add new item</button>
-            }
-          </footer>
-        </div>
+                  : <button onClick={() => setNewItem(true)} className='border-2 border-cyan-500 rounded px-4 py-2'>Add new item</button>
+              }
+            </footer>
+          </div>
+        </article>
       </div>
       <pre>{JSON.stringify(list, null, 2)}</pre>
     </>
