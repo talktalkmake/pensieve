@@ -3,6 +3,7 @@ import './css/app.css';
 
 const ACTION = {
   'TOGGLEDONE': 'toggleDone',
+  'CHANGETORED': 'changeToRed',
   'ADDNEWITEM': 'addNewItem'
 }
 
@@ -50,7 +51,6 @@ function App() {
   const handleNewItem = (label) => {
     dispatch({ type: ACTION.ADDNEWITEM, label })
     setNewItem(false);
-    setNewItemText('');
   }
 
   return (
@@ -59,10 +59,10 @@ function App() {
         <div className='p-8 border-l-2 border-l-cyan-500'>
           <h3 className='sm:-ml-64'>Monday, May 23, 2022</h3>
           <ul>
-            {list.map((item, i) =>
-              <li key={i} className='cursor-pointer hover:bg-red-500' onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: item.id })}>
-                {item.done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
-                <span className={item.done ? 'line-through text-slate-600' : ''}>{item.label}</span>
+            {list.map(({ id, done, label }, i) =>
+              <li key={i} className='cursor-pointer hover:bg-red-500' onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })}>
+                {done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
+                <span className={done ? 'line-through text-slate-600' : ''}>{label}</span>
               </li>
             )}
           </ul>
