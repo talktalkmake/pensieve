@@ -8,19 +8,24 @@ const ACTION = {
   'EDITITEM': 'editItem'
 }
 
+const today = new Date();
+
 const initialState = [
   {
     id: 1,
+    date: today,
     done: false,
     label: 'Pay electiric bill'
   },
   {
     id: 2,
+    date: today,
     done: true,
     label: 'Take Lady for a walk'
   },
   {
     id: 3,
+    date: today,
     done: false,
     label: 'Water cuttings'
   },
@@ -61,6 +66,7 @@ function App() {
 
   return (
     <>
+      <h1 className='fixed bottom-2 right-2 text-white'>Pensieve</h1>
       <div className='flex justify-center items-center h-screen bg-slate-900 text-cyan-50 font-mono'>
         <article className='flex flex-col sm:flex-row'>
           <header className='p-8'>
