@@ -2,12 +2,6 @@ import { useReducer, useState } from 'react';
 import moment from 'moment';
 import './css/app.css';
 
-const ACTION = {
-  'TOGGLEDONE': 'toggleDone',
-  'ADDNEWITEM': 'addNewItem',
-  'EDITITEM': 'editItem'
-}
-
 const today = new Date();
 
 const initialState = [
