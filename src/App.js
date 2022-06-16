@@ -1,50 +1,9 @@
 import { useReducer, useState } from 'react';
 import moment from 'moment';
 import './css/app.css';
-
-const today = new Date();
-
-const initialState = [
-  {
-    id: 1,
-    date: today,
-    done: false,
-    label: 'Pay electiric bill'
-  },
-  {
-    id: 2,
-    date: today,
-    done: true,
-    label: 'Take Lady for a walk'
-  },
-  {
-    id: 3,
-    date: today,
-    done: false,
-    label: 'Water cuttings'
-  },
-]
-
-const reducer = (state, action) => {
-
-  const { id } = action;
-
-  switch (action.type) {
-
-    case 'toggleDone':
-      return [...state.map(item => item.id === id ? { ...item, done: !item.done } : item)];
-
-    case 'addNewItem':
-      return [...state, { id: state.length + 1, done: false, label: action.label }];
-
-    case 'editItem':
-      return [...state.map(item => item.id === id ? { ...item, label: action.newLabel } : item)];
-
-    default:
-      return [...state];
-  }
-}
 import Item from './components/Item';
+import reducer from './reducers/reducer';
+import initialState from './initialState';
 import AddItem from './components/AddItem';
 
 function App() {
