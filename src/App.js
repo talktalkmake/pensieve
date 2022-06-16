@@ -44,19 +44,11 @@ const reducer = (state, action) => {
       return [...state];
   }
 }
+import Item from './components/Item';
+import AddItem from './components/AddItem';
 
 function App() {
-
   const [list, dispatch] = useReducer(reducer, initialState);
-  const [newItem, setNewItem] = useState(false);
-  const [newItemText, setNewItemText] = useState('');
-  const [editItemId, setEditItemId] = useState(false);
-  const [newLabel, setNewLabel] = useState('');
-
-  const handleNewItem = (label) => {
-    dispatch({ type: ACTION.ADDNEWITEM, label })
-    setNewItem(false);
-  }
 
   return (
     <>
@@ -70,12 +62,7 @@ function App() {
             <ul>
               {list.map(({ id, done, label }, i) =>
                 <li key={i} className='cursor-pointer flex mt-2'>
-                  {done ? <span>✔</span> : <span className='opacity-10'>✔</span>}
-                  {editItemId === id
-                    ? <input type='text' onBlur={() => setEditItemId(false)} onChange={e => dispatch({ type: ACTION.EDITITEM, id, newLabel: e.target.value })} className='bg-transparent border-2 border-cyan-500 px-4 py-2 rounded block' />
-                    : <span onClick={() => dispatch({ type: ACTION.TOGGLEDONE, id: id })} className={`${done ? 'line-through text-slate-600' : ''} ml-4 w-60`}>{label}</span>
-                  }
-                  <span onClick={() => setEditItemId(id)} className='ml-4 opacity-50 hover:opacity-100'>{!done && <span className='font-sans'>✏</span>}</span>
+                  <Item dispatch={dispatch} id={id} done={done} label={label} />
                 </li>
               )}
             </ul>
