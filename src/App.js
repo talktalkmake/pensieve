@@ -14,21 +14,16 @@ function App() {
       <h1 className='fixed bottom-2 right-2 text-white'>Pensieve</h1>
       <div className='flex justify-center items-center h-screen bg-slate-900 text-cyan-50 font-mono'>
         <article className='flex flex-col sm:flex-row'>
-          <header className='p-8'>
-            <h3 className=''>{moment(new Date()).format('DD MM YYYY')}</h3>
-          </header>
-          <div className='p-8 border-l-2 border-l-cyan-500'>
-            <ul>
-              {list.map(({ id, done, label }, i) =>
-                <li key={i} className='cursor-pointer flex mt-2'>
-                  <Item dispatch={dispatch} id={id} done={done} label={label} />
-                </li>
-              )}
-            </ul>
-            <footer className='mt-6'>
-              <AddItem dispatch={dispatch} />
-            </footer>
-          </div>
+          <ul>
+            {list.map(({ id, done, label, date }, i) =>
+              <li key={i} className='cursor-pointer flex py-2'>
+                <Item dispatch={dispatch} id={id} done={done} label={label} date={date} />
+              </li>
+            )}
+          </ul>
+          <footer className='mt-6'>
+            <AddItem dispatch={dispatch} />
+          </footer>
         </article>
       </div>
       <pre>{JSON.stringify(list, null, 2)}</pre>
