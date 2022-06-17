@@ -7,7 +7,7 @@ import initialState from './initialState';
 import AddItem from './components/AddItem';
 
 function App() {
-  const [list, dispatch] = useReducer(reducer, initialState);
+  const [list, dispatch] = useReducer(reducer, organizeItemsByDate(initialState));
 
   return (
     <>
@@ -16,7 +16,7 @@ function App() {
         <article className='flex flex-col sm:flex-row'>
           <ul>
             {list.map(({ id, done, label, date }, i) =>
-              <li key={i} className='cursor-pointer flex py-2'>
+              <li key={i} className='flex py-2'>
                 <Item dispatch={dispatch} id={id} done={done} label={label} date={date} />
               </li>
             )}
