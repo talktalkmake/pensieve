@@ -1,23 +1,28 @@
-const today = new Date();
-const yesterday = new Date(Date.now() - 24 * 3600 * 1000);
 const initialState = [
     {
-        id: 2,
-        date: today,
-        done: true,
-        label: 'Take Lady for a walk'
+        date: '22/06/20',
+        items: [
+            {
+                id: 2,
+                done: true,
+                label: 'Take Lady for a walk'
+            },
+            {
+                id: 3,
+                done: false,
+                label: 'Water cuttings'
+            }
+        ]
     },
     {
-        id: 1,
-        date: yesterday,
-        done: false,
-        label: 'Pay electiric bill'
-    },
-    {
-        id: 3,
-        date: today,
-        done: false,
-        label: 'Water cuttings'
-    },
+        date: '22/05/01',
+        items: [
+            {
+                id: 1,
+                done: false,
+                label: 'Pay electiric bill'
+            }
+        ]
+    }
 ];
 export default initialState;
